@@ -1,5 +1,5 @@
-# TITLE
-goal
+# GlutenVPNandKasmBrowser-HomelabDemo
+Demo of docker deployment via CI/CD pipeline for Gluten (VPN tunnel) to setup a private VPN depended vnc web browser (brave) via Kasm.
 
 ## Things to note in a deployment of this tool
 - this is a DEMO, please see FAQ section of README
@@ -8,6 +8,9 @@ goal
 - Setup for different VPN providers, and using Wireguard v OpenVPN connections are all different.
 - Virtualizing anything with Kasm is demanding compared to most traditional containers, I recommend at least 2vCPU and 2RAM accessible to the container for demo purposes
 - I DEMO docker swarm secrets, for a simple homelab might be better to just use a .env file
+
+### Gluten and reverse proxies on same host
+because of how gluten ties to the host nic device to ensure no leaks in the tunnel, you cannot route anything into gluten via the local machine or docker networks. You have to hit the external side of the nic via loopback using the actual IP address assigned to the host. A static IP would be best to consider if you not already doing it.
 
 ## Prerequisite in a deployment of this exact repo
 - Gitlab and a runner are Deployed and configured to talk to target server
@@ -18,10 +21,15 @@ goal
 - using [Caddy](https://github.com/SJW-sys/Caddy-HomelabDemo) or a Reverse Proxy to handle SSL for a clean URL and encryption.
 
 ## Resources:
-- Github: 
-- DockerHub: 
-- website:
-- Documentation:
+### KasmVNC
+- Github: https://github.com/kasmtech/KasmVNC
+- Github (workspace images): https://github.com/kasmtech/workspaces-images
+- DockerHub: https://hub.docker.com/r/kasmweb/brave
+- website: https://kasm.com/
+- Documentation: https://www.kasmweb.com/kasmvnc/docs/latest/index.html
+### Gluten
+- Github: https://github.com/qdm12/gluetun
+- Documentation: https://github.com/qdm12/gluetun-wiki
 
 ## FAQ for repo visitors
 ### Why does the repo have 'Demo' in the title?

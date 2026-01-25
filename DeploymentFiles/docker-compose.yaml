@@ -1,0 +1,65 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    # Hostname to use for container, required to be referenced by anything using gluetun
+    # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/connect-a-container-to-gluetun.md#external-container-to-gluetun
+    hostname: gluetun
+    # Give docker container capabilities to access all network settings
+    cap_add:
+      - NET_ADMIN
+    # Give gluetun direct access to your hardware for tunneling
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    # list out any web interfaces for tools connected to gluten, as they have to be access this way
+    ports:
+      - 11000:6901 #Bravebrowser
+    volumes:
+      - gluetun-data:/gluetun
+      - ./secrets:/run/secrets
+    environment:
+      # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE}
+      - VPN_TYPE=${VPN_TYPE}
+      # See the following to obtain your-wireguard-private-key https://github.com/qdm12/gluetun-wiki/tree/main/setup/providers
+      - WIREGUARD_PRIVATE_KEY_SECRETFILE=/run/secrets/wireguard_key
+      - WIREGUARD_ADDRESSES_SECRETFILE=/run/secrets/wireguard_addresses
+      # Timezone for accurate log times
+      - TZ=${VPN_TIMEZONE}
+      # Server list updater
+      # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/servers.md#update-the-vpn-servers-list
+      - UPDATER_PERIOD=24h
+      # VPN server options:
+      - SERVER_COUNTRIES=${VPN_COUNTRIES} 
+    #NO RESTART OPTION, WANT FULL CONTAINER CONTROL
+    networks:
+      VPNnetwork:
+        ipv4_address: 172.180.0.200 #hard coding id, doing this for services that require a "trusted-proxy" var to be set, using static ip over range. Setting to a high value to ensure if the containers all boot out of order on host start up, that ct can reserve an ip without a clash issue.
+
+  brave:
+    image: kasmweb/brave:${IMAGE_TAG:-latest} #setup to look for .env variable, if it cannot find one, fail back to "latest"
+    # making the ct network fully passthrough gluetun
+    network_mode: "service:gluetun"
+    # you will need a bind mount if you intend to download anything through the browser, be sure to target this folder when downloading. Otherwise you will need to manaully access cli and move
+    volumes:
+      - ~/BindMounts/Kasm/Downloads:/ext-downloads
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - APP_ARGS= --incognito
+    shm_size: 2048m
+    depends_on:
+      - gluetun
+
+volumes:
+  gluetun-data:
+    name: gluetun-data #I typically like to name my volumes so its easier to ID them and remount them
+
+networks:
+  VPNnetwork:
+    name: VPNnetwork
+    driver: bridge
+    # external: true # uncomment in the event the network exist before hand, troubleshooting line I leave in on my compose files.
+    ipam:
+      config:
+        - subnet: 172.180.0.0/24 #setting the ip range that can be used for this docker network

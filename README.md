@@ -1,5 +1,5 @@
 # GlutenVPNandKasmBrowser-HomelabDemo
-Demo of docker deployment via CI/CD pipeline for Gluten (VPN tunnel) to setup a private VPN depended vnc web browser (brave) via Kasm.
+Demo of docker deployment via CI/CD Gitlab pipeline for Gluten (VPN tunnel) to setup a private VPN depended vnc web browser (brave) via Kasm.
 
 ## Things to note in a deployment of this tool
 - This is a DEMO, please see FAQ section of README

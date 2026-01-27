@@ -49,7 +49,7 @@ I have tried a few different proxy managers, but settled in Caddy for the straig
 ### Where can I find more about this project and your thought process?
 I make it a habit that my files typically have dozens of in-line comments to better help anyone using them for the first time to understand what is happening, maybe not always why. Also please check out my blog, it typically has more information on my projects (sometimes the post is still being planned).
 
-### Does ths connect to your other Homelab Demo repos?
+### Does ths connect to your other Homelab Demo repositories?
 Yes! Most of these demos connect to this exact project, for the use of ssl termination.
 
 ### Was AI used to generate this?

@@ -42,7 +42,7 @@ services:
     network_mode: "service:gluetun"
     # you will need a bind mount if you intend to download anything through the browser, be sure to target this folder when downloading. Otherwise you will need to manaully access cli and move
     volumes:
-      - ~/BindMounts/Kasm/Downloads:/ext-downloads
+      - ./BindMounts/Kasm/Downloads:/ext-downloads
     environment:
       - PUID=1000
       - PGID=1000

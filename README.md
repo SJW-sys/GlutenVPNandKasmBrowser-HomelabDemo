@@ -20,6 +20,7 @@ Because of how gluten ties to the host nic device to ensure no leaks in the tunn
 - DNS resolver is already configured.
 - Updating .env file for your needs.
 - Using [Caddy](https://github.com/SJW-sys/Caddy-HomelabDemo) or a Reverse Proxy to handle SSL for a clean URL and encryption.
+- An account with sudo level permissions.
 - Please review any prerequisites for additional demos you use.
 
 ## Resources:

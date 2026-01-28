@@ -16,7 +16,7 @@ Because of how gluten ties to the host nic device to ensure no leaks in the tunn
 ## Prerequisite in a deployment of this exact repository
 - GitLab and a runner are Deployed and configured to talk to target Debian 13.3 (trixie) server to deploy containers.
 - Some Variables have been configured within Gitlab to inject into a pipeline at runtime:
-    SSH_HOMELABDEMO_PRIVATE_KEY, REMOTE_PORT, REMOTE_USER (for main/prod), REMOTE_HOST (for main/prod), REMOTE_USER (for test), REMOTE_HOST (for test)
+    SSH_HOMELABDEMO_PRIVATE_KEY, REMOTE_PORT, PROD_REMOTE_USER , PROD_REMOTE_HOST , TEST_REMOTE_USER , TEST_REMOTE_HOST
 - Target Debian 13.3 (trixie) server at a minimum has docker and openssh server (w/ .pub key) setup.
 - DNS resolver is already configured.
 - Updating .env file for your needs.

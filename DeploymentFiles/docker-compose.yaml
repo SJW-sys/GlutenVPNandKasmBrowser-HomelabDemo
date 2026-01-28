@@ -1,6 +1,6 @@
 services:
   gluetun:
-    image: qmcgaw/gluetun:${GLUETEN_IMAGE_TAG:-latest}
+    image: qmcgaw/gluetun:${GLUETEN_IMAGE_TAG:-latest} #setup to look for .env variable, if it cannot find one, fail back to "latest".
     container_name: gluetun
     # Hostname to use for container, required to be referenced by anything using gluetun
     # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/connect-a-container-to-gluetun.md#external-container-to-gluetun

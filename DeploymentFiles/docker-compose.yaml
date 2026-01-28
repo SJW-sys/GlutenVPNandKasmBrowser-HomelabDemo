@@ -1,6 +1,6 @@
 services:
   gluetun:
-    image: qmcgaw/gluetun:latest
+    image: qmcgaw/gluetun:${GLUETEN_IMAGE_TAG:-latest}
     container_name: gluetun
     # Hostname to use for container, required to be referenced by anything using gluetun
     # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/connect-a-container-to-gluetun.md#external-container-to-gluetun
@@ -37,7 +37,7 @@ services:
         ipv4_address: 172.180.0.200 #hard coding id, doing this for services that require a "trusted-proxy" var to be set, using static ip over range. Setting to a high value to ensure if the containers all boot out of order on host start up, that ct can reserve an ip without a clash issue.
 
   brave:
-    image: kasmweb/brave:${IMAGE_TAG:-latest} #setup to look for .env variable, if it cannot find one, fail back to "latest"
+    image: kasmweb/brave:${BRAVE_IMAGE_TAG:-latest} #setup to look for .env variable, if it cannot find one, fail back to "latest". Normally I have all ct running from a single IMAGE_TAG var, but kasm browsers update so frequently.
     # making the ct network fully passthrough gluetun
     network_mode: "service:gluetun"
     # you will need a bind mount if you intend to download anything through the browser, be sure to target this folder when downloading. Otherwise you will need to manaully access cli and move

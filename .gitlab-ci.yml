@@ -15,7 +15,7 @@ Docker-run:
     # Setup ssh key in memory to reduce exposure, while allowing multiple ssh connections without having to valid passphrases multiple times
     - eval $(ssh-agent -s)
     # Load the private key from the masked CI variable without touching the filesystem, while unpacking the base64 encoded string to avoid github whitespace issue with ssh keys. This line requires a bash image to run it.
-    - ssh-add <(echo "$SSH_GIT2LAUNCH_PRIVATE_KEY" | base64 -d)
+    - ssh-add <(echo "$SSH_HOMELABDEMO_PRIVATE_KEY" | base64 -d)
     # Populate known_host file for the target host avoiding disable host key checking and opening MITM attacks
     - mkdir -p ~/.ssh && chmod 700 ~/.ssh
     - ssh-keyscan -p "${REMOTE_PORT}" "${REMOTE_HOST}" >> ~/.ssh/known_hosts
